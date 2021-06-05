@@ -1,0 +1,11 @@
+set Serveroutput On;
+Declare
+cursor cur is select po_cont, po_status from t_lipo_policy  where po_pol_num='4383255';
+c1 cur%rowtype;
+begin
+open cur;
+fetch cur into c1;
+close cur;
+Dbms_Output.Put_Line(c1.po_cont);
+Dbms_Output.Put_Line(c1.po_status);
+end;
