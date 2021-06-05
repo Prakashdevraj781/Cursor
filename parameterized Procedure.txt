@@ -1,0 +1,14 @@
+parameterized Procedure
+
+
+
+Create or replace procedure Solo (d Integer ,b Integer)
+as
+ c Integer; 
+ 
+Begin
+
+ c:= d+ b;
+ Dbms_Output.Put_Line(c);
+End;
+

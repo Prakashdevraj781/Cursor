@@ -1,0 +1,11 @@
+For type cursor 
+
+set Serveroutput On;
+begin
+    
+    For i in (select * from t_lipo_policy where rownum <1000)   
+    LOOP
+         Dbms_Output.Put_Line(i.Po_Cont ||' ' ||i.Po_Status);
+    END LOOP;  
+    
+end; 

@@ -1,0 +1,23 @@
+Parametrized cursor
+
+set Serveroutput On;
+Declare 
+ cursor c(co_pln_code string) is select Po_Cont from t_lipo_policy where Po_pln_code=co_pln_code and rownum <10;
+ policy Varchar2(50);
+ Begin
+ Dbms_Output.Put_Line('For po_pln_code 723');
+ open c('723');
+ loop
+ fetch c into policy;
+ exit when c%notfound;
+ Dbms_Output.Put_Line(policy);
+ End Loop;
+ close c;
+ Dbms_Output.Put_Line('For po_pln_code 723');
+ open c('725');
+ loop
+ fetch c into policy;
+ exit when c%notfound;
+ Dbms_Output.Put_Line(policy);
+ End Loop;
+ End;

@@ -1,0 +1,21 @@
+
+Dynamic bulk statement
+
+
+set Serveroutput on
+Declare
+    output2 varchar2(1250);
+Begin
+       output2:='DECLARE
+               TYPE NT_PO_POL_NUM IS TABLE OF Varchar2(50);-- Type ref_cur_type IS REF CURSOR;-- DEFINING REF CURSOR TYPE
+               POL_NUM NT_PO_POL_NUM;
+            BEGIN
+                select Po_Cont BULK COLLECT into POL_NUM from t_lipo_policy where Rownum < 10;
+                FOR idx IN 1..POL_NUM.COUNT
+                LOOP
+                    Dbms_Output.Put_Line (POL_NUM(idx));
+                END LOOP;
+            END;';
+     Execute Immediate output2;
+End;
+/

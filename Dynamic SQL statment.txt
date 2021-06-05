@@ -1,0 +1,15 @@
+Dynamic SQL statment
+
+set Serveroutput on
+Declare
+    output varchar2(250);
+Begin
+    output:='Declare 
+            Usr_var varchar2(20);
+            Begin 
+                select user into Usr_var from dual;
+                Dbms_Output.Put_Line(''Current user is '' ||Usr_Var);
+            End;';
+    Execute Immediate output;
+End;
+/

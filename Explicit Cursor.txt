@@ -1,0 +1,16 @@
+Explicit Cursor
+
+set Serveroutput On
+Declare
+ cursor P is select * from dbo.t_lipo_policy where po_pln_code='723' and po_status='K' ;
+ C1 T_LIPO_POLICY%ROWTYPE;
+begin
+    open P;
+       
+    LOOP
+        fetch P into C1;
+        exit when P%notfound;
+        Dbms_Output.Put_Line(C1.Po_Cont ||' ' ||C1.Po_Status);
+    END LOOP;  
+    close P;
+end; 

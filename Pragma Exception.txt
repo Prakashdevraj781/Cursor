@@ -1,0 +1,11 @@
+Pragma Exception
+
+DECLARE
+VALUE_TOO_LARGE Exception;
+PRAGMA Exception_Init (VALUE_TOO_LARGE, -12899);
+Begin
+    insert into T_Lisa_Status(Sa_Status,Sa_Lifecad_Desc,Sa_Status_Desc,Sa_Rider,Sa_Order,Tstamp)
+    values(11,'No_status','No_status',3,1,'15-MAY-2021 19:02:36');
+    EXCEPTION WHEN VALUE_TOO_LARGE THEN
+        Dbms_Output.Put_Line('a handled exception');
+END;

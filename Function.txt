@@ -1,0 +1,20 @@
+function
+
+Create or replace Function Fname (d varchar2)
+return Varchar2
+as
+ Stuname Varchar2(20);
+Begin
+Stuname:=d;
+return Stuname;
+End;
+
+Plsql block to read from Function 
+
+set Serveroutput On
+Declare
+v varchar2(20);
+Begin
+v:=Fname('Dev');
+Dbms_Output.Put_Line('My name is '|| v);
+End;
