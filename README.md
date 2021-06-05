@@ -1,8 +1,4 @@
---# Cursor
---Different Type of cursor
---Rference Cursor
-
-Refrence Cursor
+--Refrence Cursor
 
 set Serveroutput On;
 Declare
