@@ -1,0 +1,30 @@
+set Serveroutput On;
+Declare 
+ V_pol_num number;
+ V_cont varchar2(20);
+ v t_lipo_policy%rowtype;
+ Type vararray_type is VARRAY(7) OF VARCHAR2(30);
+ weekday vararray_type:=vararray_type('Null','Null','Null','Null','Null','Null','Null');
+BEGIN
+
+select po_pol_num,po_cont into V_pol_num,V_cont from t_lipo_policy where po_pol_num='4383255';--scalar type
+Dbms_Output.Put_Line('Scalar data Type variable '||V_pol_num || ' '  || V_Cont);
+
+
+select * into v from t_lipo_policy where po_pol_num='4383255'; --record type
+Dbms_Output.Put_Line('Record data type variable  '|| v.po_cont);
+
+
+weekday(1):='Monday';--Assigning values
+weekday(2):='Tuesday';
+weekday(3):='Wednesday';
+weekday(4):='Thursday';
+weekday(5):='Friday';
+weekday(6):='Saturday';
+weekday(7):='Sunday';
+For i in 1..7
+loop
+Dbms_Output.Put_Line(i|| ' '|| weekday(i));
+end loop;
+END;
+
