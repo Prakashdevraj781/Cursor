@@ -1,0 +1,15 @@
+set Serveroutput On;
+Declare
+ Type ref_cur_type IS REF CURSOR RETURN T_LIPO_POLICY%ROWTYPE;-- DEFINING REF CURSOR TYPE
+ refvar ref_cur_type;-- REFERENCE CURSOR VARIABLE
+ C1 T_LIPO_POLICY%ROWTYPE;
+Begin
+OPEN refvar FOR select * from t_lipo_policy where po_pln_code ='723';
+LOOP
+FETCH refvar into C1;
+exit when refvar%NOTFOUND;
+ Dbms_Output.Put_Line(C1.Po_Cont ||' ' ||C1.Po_Status);
+END LOOP;
+close refvar;
+
+End;
