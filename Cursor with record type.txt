@@ -1,0 +1,16 @@
+Cursor with record type to access more then 1 coloumn
+
+Set Serveroutput On
+Declare
+CURSOR C1 IS SELECT * FROM T_LIPO_POLICY WHERE PO_PLN_CODE='723' AND ROWNUM<10;
+r t_lipo_policy%ROWTYPE;
+begin
+Dbms_Output.Put_Line('within EXPLICIT cursor');
+open  C1;
+loop
+Fetch C1 into r;
+exit when C1%notfound;
+Dbms_Output.Put_Line(r.po_cont|| ' ' || r.po_pol_num || ' ' || r.po_co_id);
+end loop;
+close C1;
+end;
