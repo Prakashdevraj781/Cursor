@@ -1,0 +1,21 @@
+set Serveroutput On
+
+Declare
+
+Type VARRAY_TYPE IS VARRAY(7) of varchar2(50);
+
+v VARRAY_TYPE:=VARRAY_TYPE(0,0,0,0,0,0,0);
+
+begin
+
+select po_pol_num bulk collect into v from t_lipo_policy where po_pln_code='723' and rownum<8;
+
+for i in 1..7
+
+loop
+
+Dbms_Output.Put_Line (v(i));
+
+end loop;
+
+end;
