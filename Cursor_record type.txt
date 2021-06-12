@@ -7,5 +7,4 @@ open cur;
 fetch cur into c1;
 close cur;
 Dbms_Output.Put_Line(c1.po_cont);
-Dbms_Output.Put_Line(c1.po_status);
 end;
