@@ -1,0 +1,9 @@
+Create or replace function Sum_of_policy(COUNTOFPOLICY IN number)
+RETURN number
+AS
+p number;
+begin
+Select po_pol_num into p from (
+Select sum(po_pol_num) as po_pol_num from t_lipo_policy where Rownum < COUNTOFPOLICY order by po_pol_num asc);
+return p;
+end;
