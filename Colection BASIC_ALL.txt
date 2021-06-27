@@ -1,0 +1,16 @@
+create or replace procedure Student_Collection
+as
+TYPE NT_TABLE_TYPE IS TABLE OF Varchar2(20);
+C1 NT_TABLE_TYPE;
+TYPE VARRAY_TYPE IS VARRAY(100) OF NUMBER;
+C2 VARRAY_TYPE;
+
+Begin
+Select po_cont bulk collect into C1 from t_lipo_policy where po_pln_code='572' and po_status='W';
+Select Po_Pol_Num bulk collect into C2 from t_lipo_policy where po_pln_code='573' and po_status='W';
+for i in 1..100
+loop
+Dbms_Output.Put_Line(C1(i) || ' ' || C2(i));
+
+end loop;
+end Student_Collection;

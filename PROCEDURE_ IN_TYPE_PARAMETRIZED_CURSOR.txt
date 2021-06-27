@@ -1,0 +1,28 @@
+Create or replace procedure devraj.student_detail(z Student.Name%TYPE) 
+AS
+var Student.Name%TYPE;
+CURSOR C(VNAME STRING) IS SELECT  NAME FROM student WHERE Name=VNAME ;
+Begin
+OPEN C(z);
+LOOP
+FETCH C INTO VAR;
+EXIT WHEN C%NOTFOUND;
+DBMS_OUTPUT.PUT_LINE(VAR);
+END LOOP ;
+CLOSE C;
+END student_detail;
+
+Create or replace procedure devraj.student_detail(z Student.Name%TYPE) 
+AS
+var Student%ROWTYPE;
+
+CURSOR C(VNAME STRING) IS SELECT  * FROM student WHERE Name=VNAME ;
+Begin
+OPEN C(z);
+LOOP
+FETCH C INTO VAR;
+EXIT WHEN C%NOTFOUND;
+DBMS_OUTPUT.PUT_LINE(VAR.ROLL ||' ' ||VAR.NAME);
+END LOOP ;
+CLOSE C;
+END student_detail;

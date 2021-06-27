@@ -1,0 +1,13 @@
+Create or replace procedure devraj.student_detail(z in number) 
+AS
+var student%ROWTYPE;
+CURSOR C(VROLL Integer) IS SELECT  * FROM student WHERE ROLL=VROLL ;
+Begin
+OPEN C(z);
+LOOP
+FETCH C INTO VAR;
+EXIT WHEN C%NOTFOUND;
+DBMS_OUTPUT.PUT_LINE(VAR.ROLL || '  ' || VAR.NAME);
+END LOOP ;
+CLOSE C;
+END student_detail;
