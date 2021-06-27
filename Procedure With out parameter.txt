@@ -1,0 +1,18 @@
+Create or replace procedure devraj.Student_procedure(z  OUT NUMBER)
+AS
+highest_pol_num int;
+Begin
+Select po_pol_num into highest_pol_num from (
+Select po_pol_num ,Dense_rank() over (order by po_pol_num desc)r from t_lipo_policy )where r=1;
+Dbms_Output.Put_Line(highest_pol_num);
+z:=highest_pol_num;
+End Student_procedure;
+
+set Serveroutput On;
+Declare
+A number;
+Begin
+Student_procedure(A);
+Dbms_Output.Put_Line(A);
+ENd;
+
