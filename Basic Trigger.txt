@@ -1,0 +1,8 @@
+create or replace Trigger  Devraj.Mytrigger
+after insert or update or delete on student
+for each row
+Declare
+v_user varchar2(10);
+Begin
+insert into Test1 values('10',coalesce(v_user,'paparazi'));
+end;
