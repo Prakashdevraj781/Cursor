@@ -1,0 +1,32 @@
+--Without BULK binding
+create or replace procedure Example
+as
+TYPE NT_TABLE_TYPE IS TABLE OF T_LIPO_POLICY%ROWTYPE;
+NT_TABLE NT_TABLE_TYPE:=NT_TABLE_TYPE();
+LIPO_REC T_LIPO_POLICY%ROWTYPE;
+begin
+for i in (Select * from t_lipo_policy)
+loop
+LIPO_REC.PO_CONT:=I.Po_Cont;
+LIPO_REC.PO_POL_NUM:=I.Po_pol_num;
+LIPO_REC.PO_STATUS:=I.Po_Status;
+LIPO_REC.PO_STATE_CODE:=I.Po_State_Code;
+NT_TABLE.EXTEND();
+NT_TABLE(NT_TABLE.LAST):=LIPO_REC;
+end loop;
+Dbms_Output.Put_Line(NT_TABLE.COUNT);
+end Example;
+
+time taken 82.76 sec
+
+create or replace procedure Example1
+as
+TYPE NT_TABLE_TYPE IS TABLE OF T_LIPO_POLICY%ROWTYPE;
+NT_TABLE NT_TABLE_TYPE:=NT_TABLE_TYPE();
+LIPO_REC T_LIPO_POLICY%ROWTYPE;
+begin
+SELECT * BULK COLLECT INTO NT_TABLE FROM T_LIPO_POLICY ;
+Dbms_Output.Put_Line(NT_TABLE.COUNT);
+end Example1;
+
+time taken 0.11 sec
