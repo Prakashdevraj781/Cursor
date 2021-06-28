@@ -1,0 +1,9 @@
+merge into student1
+using student
+on (Student.Roll=student1.Roll)
+when matched then
+update
+set Name=Student.Name,
+    Salary=student.salary
+when not matched then
+insert values (Student.Roll,Student.Name,Student.Salary);
