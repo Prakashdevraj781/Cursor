@@ -1,0 +1,9 @@
+@C:\Oracle_x64\product\11.2.0\x64Client\rdbms\admin\proftab.sql;
+exec SYS.Dbms_Profiler.start_profiler('Example');
+EXECUTE Example3;
+EXECUTE Example1;
+exec SYS.Dbms_Profiler.stop_profiler();
+SELECT * FROM User_Tables ;
+Delete from Plsql_Profiler_Runs;
+Delete from Plsql_Profiler_Units;
+sELECT * FROM Plsql_Profiler_Data;
