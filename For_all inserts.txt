@@ -1,0 +1,31 @@
+Create or replace procedure For_all
+as
+Type nt_table_list is table of Test1%rowtype;
+table_list nt_table_list:=nt_table_list();
+v_start number;
+v_end number;
+begin
+--populating collection using loop
+for i in 1..100000
+loop
+table_list.extend;
+table_list(table_list.last).VID:=i;
+table_list(table_list.last).insert_through:='normal_insert';
+end loop;
+--inserting through normal loop iterating over 
+v_start:=dbms_utility.get_time;
+for j in table_list.first.. table_list.last
+loop
+insert into Test1(VID,insert_through) values(table_list(j).VID,table_list(j).insert_through);
+end loop;
+v_end:=dbms_utility.get_time;
+commit;
+Dbms_Output.Put_Line(v_end-V_Start);
+-- inserting through for all
+v_start:=dbms_utility.get_time;
+forall k in table_list.first.. table_list.last
+insert into Test1(VID,insert_through) values(table_list(k).VID,'forall_insert');
+commit;
+v_end:=dbms_utility.get_time;
+Dbms_Output.Put_Line(v_end-V_Start);
+end For_all;
