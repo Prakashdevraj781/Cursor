@@ -1,0 +1,28 @@
+
+create or replace procedure Example
+as
+TYPE NT_TABLE_TYPE IS TABLE OF T_LIPO_POLICY%ROWTYPE;
+NT_TABLE NT_TABLE_TYPE:=NT_TABLE_TYPE();
+LIPO_REC T_LIPO_POLICY%ROWTYPE;
+v_start number;
+v_end number;
+begin
+v_start:=dbms_utility.get_time;
+for i in (Select * from t_lipo_policy)
+loop
+LIPO_REC.PO_CONT:=I.Po_Cont;
+LIPO_REC.PO_POL_NUM:=I.Po_pol_num;
+LIPO_REC.PO_STATUS:=I.Po_Status;
+LIPO_REC.PO_STATE_CODE:=I.Po_State_Code;
+NT_TABLE.EXTEND();
+NT_TABLE(NT_TABLE.LAST):=LIPO_REC; 
+end loop;
+v_end:=dbms_utility.get_time;
+Dbms_Output.Put_Line(NT_TABLE.COUNT);
+Dbms_Output.Put_Line(v_end-v_start);
+v_start:=dbms_utility.get_time;
+SELECT * BULK COLLECT INTO NT_TABLE FROM T_LIPO_POLICY ;
+v_end:=dbms_utility.get_time;
+Dbms_Output.Put_Line(NT_TABLE.COUNT);
+ Dbms_Output.Put_Line(v_end-v_start);
+end Example;
